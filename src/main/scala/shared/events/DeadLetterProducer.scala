@@ -22,7 +22,7 @@ object DeadLetterProducer {
 
   val make: ZLayer[Scope with Any with Kinesis, Throwable, Producer[String]] =
     ZLayer.fromZIO {
-      Producer.make("ev-outlet-app.dead-letters.stream", Serde.asciiString)
+      Producer.make("ev-charging_charging-events-dead-letters_stream", Serde.asciiString)
     }
 
   val live: ZLayer[Producer[String], Nothing, DeadLetterProducer] =

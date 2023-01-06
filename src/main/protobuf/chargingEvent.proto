@@ -4,7 +4,7 @@ package com.anzop.evCharger;
 
 import "google/protobuf/timestamp.proto";
 
-message EventSessionDataProto {
+message EventSessionProto {
   string sessionId = 1;
   string rfidTag = 2;
   google.protobuf.Timestamp periodStart = 3;
@@ -12,9 +12,9 @@ message EventSessionDataProto {
   double powerConsumption = 5;
 }
 
-message OutletStatusEventProto {
-  string requester = 1;
+message ChargingEventProto {
+  string initiator = 1;
   string outletId = 2;
   string outletState = 3;
-  EventSessionDataProto recentSession = 4;
+  EventSessionProto recentSession = 4;
 }

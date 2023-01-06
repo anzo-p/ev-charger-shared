@@ -1,7 +1,7 @@
 package shared.types.enums
 
 import enumeratum.{Enum, EnumEntry}
-import zio.json.{DeriveJsonCodec, JsonCodec}
+import zio.json.{JsonDecoder, JsonEncoder}
 import zio.schema.Schema
 
 import scala.collection.mutable
@@ -13,8 +13,11 @@ sealed trait AppState
 object OutletDeviceState extends Enum[OutletDeviceState] {
   val values: IndexedSeq[OutletDeviceState] = findValues
 
-  implicit val codec: JsonCodec[OutletDeviceState] =
-    DeriveJsonCodec.gen[OutletDeviceState]
+  implicit val decoder: JsonDecoder[OutletDeviceState] =
+    JsonDecoder[String].map(OutletDeviceState.withName)
+
+  implicit val encoder: JsonEncoder[OutletDeviceState] =
+    JsonEncoder[String].contramap(_.entryName)
 
   implicit val schema: Schema[OutletDeviceState] =
     Schema[String].transform(

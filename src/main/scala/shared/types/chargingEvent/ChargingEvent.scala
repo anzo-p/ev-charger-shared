@@ -1,10 +1,10 @@
-package shared.types.outletStatus
+package shared.types.chargingEvent
 
-import shared.types.enums.{OutletDeviceState, OutletStateRequester}
+import shared.types.enums.{EventInitiator, OutletDeviceState}
 
 import java.util.UUID
 
-final case class EventSessionData(
+final case class EventSession(
     sessionId: Option[UUID],
     rfidTag: String,
     periodStart: java.time.OffsetDateTime,
@@ -12,21 +12,21 @@ final case class EventSessionData(
     powerConsumption: Double
   )
 
-final case class OutletStatusEvent(
-    requester: OutletStateRequester,
+final case class ChargingEvent(
+    initiator: EventInitiator,
     outletId: UUID,
     outletState: OutletDeviceState,
-    recentSession: EventSessionData
+    recentSession: EventSession
   )
 
-object OutletStatusEvent {
+object ChargingEvent {
 
-  def deviceStart(outletId: UUID, rfidTag: String): OutletStatusEvent =
-    OutletStatusEvent(
-      requester   = OutletStateRequester.OutletDevice,
+  def deviceStart(outletId: UUID, rfidTag: String): ChargingEvent =
+    ChargingEvent(
+      initiator   = EventInitiator.OutletDevice,
       outletId    = outletId,
       outletState = OutletDeviceState.ChargingRequested,
-      recentSession = EventSessionData(
+      recentSession = EventSession(
         sessionId        = None,
         rfidTag          = rfidTag,
         periodStart      = java.time.OffsetDateTime.now(),
@@ -35,12 +35,12 @@ object OutletStatusEvent {
       )
     )
 
-  def deviceStop(outletId: UUID, rfidTag: String): OutletStatusEvent =
-    OutletStatusEvent(
-      requester   = OutletStateRequester.OutletDevice,
+  def deviceStop(outletId: UUID, rfidTag: String): ChargingEvent =
+    ChargingEvent(
+      initiator   = EventInitiator.OutletDevice,
       outletId    = outletId,
       outletState = OutletDeviceState.Finished,
-      recentSession = EventSessionData(
+      recentSession = EventSession(
         sessionId        = None,
         rfidTag          = rfidTag,
         periodStart      = java.time.OffsetDateTime.now(),
