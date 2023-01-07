@@ -18,10 +18,10 @@ trait ChargingEventConsumer {
 
   def deadLetters: DeadLetterProducer
 
-  def consume(record: Record[ChargingEvent]): Task[Unit]
+  def consume(data: ChargingEvent): Task[Unit]
 
   private def consumeAndCatch(record: Record[ChargingEvent]): ZIO[Any, Throwable, Unit] =
-    consume(record).catchAll {
+    consume(record.data).catchAll {
       case th: Throwable => deadLetters.send[ChargingEvent](record, th)
       case _             => ZIO.succeed(())
     }
