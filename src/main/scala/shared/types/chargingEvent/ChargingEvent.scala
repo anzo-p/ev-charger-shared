@@ -25,7 +25,7 @@ object ChargingEvent {
     ChargingEvent(
       initiator   = EventInitiator.OutletDevice,
       outletId    = outletId,
-      outletState = OutletDeviceState.ChargingRequested,
+      outletState = OutletDeviceState.DeviceRequestsCharging,
       recentSession = EventSession(
         sessionId        = None,
         rfidTag          = rfidTag,
@@ -39,7 +39,7 @@ object ChargingEvent {
     ChargingEvent(
       initiator   = EventInitiator.OutletDevice,
       outletId    = outletId,
-      outletState = OutletDeviceState.Finished,
+      outletState = OutletDeviceState.DeviceRequestsStop,
       recentSession = EventSession(
         sessionId        = None,
         rfidTag          = rfidTag,

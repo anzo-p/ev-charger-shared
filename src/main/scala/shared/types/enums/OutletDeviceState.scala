@@ -26,26 +26,24 @@ object OutletDeviceState extends Enum[OutletDeviceState] {
     )
 
   case object Available extends OutletDeviceState
-  case object Broken extends OutletDeviceState
   case object CablePlugged extends OutletDeviceState
-  case object CableRemoved extends OutletDeviceState
-  case object Cancelled extends OutletDeviceState
-  case object ChargingRequested extends OutletDeviceState with AppState
+  case object DeviceRequestsCharging extends OutletDeviceState with AppState
+  case object AppRequestsCharging extends OutletDeviceState with AppState
   case object Charging extends OutletDeviceState with AppState
-  case object StoppingRequested extends OutletDeviceState with AppState
-  case object Finished extends OutletDeviceState with AppState
+  case object DeviceRequestsStop extends OutletDeviceState with AppState
+  case object AppRequestsStop extends OutletDeviceState with AppState
 
   private object Transitions {
 
     val allowedTransitions: Map[OutletDeviceState, Seq[OutletDeviceState]] =
       Map(
-        Available         -> Seq(CablePlugged),
-        CablePlugged      -> Seq(ChargingRequested, Charging, CableRemoved),
-        ChargingRequested -> Seq(Charging, CableRemoved),
-        Charging          -> Seq(Charging, StoppingRequested, Finished, CableRemoved),
-        StoppingRequested -> Seq(Finished, CableRemoved),
-        Finished          -> Seq(CableRemoved),
-        CableRemoved      -> Seq(Available)
+        Available              -> Seq(CablePlugged),
+        CablePlugged           -> Seq(Available, DeviceRequestsCharging, AppRequestsCharging),
+        DeviceRequestsCharging -> Seq(Available, CablePlugged, Charging),
+        AppRequestsCharging    -> Seq(Available, CablePlugged, Charging),
+        Charging               -> Seq(Charging, DeviceRequestsStop, AppRequestsStop),
+        DeviceRequestsStop     -> Seq(CablePlugged),
+        AppRequestsStop        -> Seq(CablePlugged)
       )
 
     val preStates: mutable.HashMap[OutletDeviceState, Seq[OutletDeviceState]] = mutable.HashMap()
