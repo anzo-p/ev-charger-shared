@@ -1,6 +1,7 @@
 package shared.types.chargingEvent
 
 import shared.types.enums.{EventInitiator, OutletDeviceState}
+import shared.types.outletStateMachine.OutletStateMachine
 
 import java.util.UUID
 
@@ -17,7 +18,7 @@ final case class ChargingEvent(
     outletId: UUID,
     outletState: OutletDeviceState,
     recentSession: EventSession
-  )
+  ) extends OutletStateMachine
 
 object ChargingEvent {
 
