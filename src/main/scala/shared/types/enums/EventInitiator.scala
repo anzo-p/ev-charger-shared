@@ -11,6 +11,6 @@ object EventInitiator extends Enum[EventInitiator] {
   implicit val codec: JsonCodec[EventInitiator] =
     DeriveJsonCodec.gen[EventInitiator]
 
-  case object Application extends EventInitiator
-  case object OutletDevice extends EventInitiator
+  case object AppBackend extends EventInitiator
+  case object OutletBackend extends EventInitiator
 }

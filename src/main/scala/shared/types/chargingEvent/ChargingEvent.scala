@@ -24,7 +24,7 @@ object ChargingEvent {
 
   def deviceStart(outletId: UUID, rfidTag: String): ChargingEvent =
     ChargingEvent(
-      initiator   = EventInitiator.OutletDevice,
+      initiator   = EventInitiator.OutletBackend,
       outletId    = outletId,
       outletState = OutletDeviceState.DeviceRequestsCharging,
       recentSession = EventSession(
@@ -38,7 +38,7 @@ object ChargingEvent {
 
   def deviceStop(outletId: UUID, rfidTag: String): ChargingEvent =
     ChargingEvent(
-      initiator   = EventInitiator.OutletDevice,
+      initiator   = EventInitiator.OutletBackend,
       outletId    = outletId,
       outletState = OutletDeviceState.DeviceRequestsStop,
       recentSession = EventSession(
