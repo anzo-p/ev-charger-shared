@@ -19,34 +19,3 @@ final case class ChargingEvent(
     outletState: OutletDeviceState,
     recentSession: EventSession
   ) extends OutletStateMachine
-
-object ChargingEvent {
-
-  def deviceStart(outletId: UUID, rfidTag: String): ChargingEvent =
-    ChargingEvent(
-      initiator   = EventInitiator.OutletBackend,
-      outletId    = outletId,
-      outletState = OutletDeviceState.DeviceRequestsCharging,
-      recentSession = EventSession(
-        sessionId        = None,
-        rfidTag          = rfidTag,
-        periodStart      = java.time.OffsetDateTime.now(),
-        periodEnd        = None,
-        powerConsumption = 0.0
-      )
-    )
-
-  def deviceStop(outletId: UUID, rfidTag: String): ChargingEvent =
-    ChargingEvent(
-      initiator   = EventInitiator.OutletBackend,
-      outletId    = outletId,
-      outletState = OutletDeviceState.DeviceRequestsStop,
-      recentSession = EventSession(
-        sessionId        = None,
-        rfidTag          = rfidTag,
-        periodStart      = java.time.OffsetDateTime.now(),
-        periodEnd        = Some(java.time.OffsetDateTime.now()),
-        powerConsumption = 0.0
-      )
-    )
-}
