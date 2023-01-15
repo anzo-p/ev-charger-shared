@@ -4,6 +4,7 @@ import zio.schema.Schema.Field
 import zio.schema.{Schema, StandardType}
 
 import java.time.format.DateTimeFormatter
+import scala.concurrent.duration.Duration
 
 object TimeExtensions {
 
@@ -16,6 +17,9 @@ object TimeExtensions {
   }
 
   implicit class JavaOffsetDateTimeOps(val ts: java.time.OffsetDateTime) extends AnyVal {
+
+    def isRecentUpTo(d: Duration): Boolean =
+      java.time.OffsetDateTime.now().minusSeconds(d.toSeconds).isBefore(ts)
 
     def toProtobufTs: com.google.protobuf.timestamp.Timestamp =
       com.google.protobuf.timestamp.Timestamp {
