@@ -6,8 +6,6 @@ import zio.schema.Schema
 
 sealed trait OutletDeviceState extends EnumEntry
 
-sealed trait AppState
-
 object OutletDeviceState extends Enum[OutletDeviceState] {
   val values: IndexedSeq[OutletDeviceState] = findValues
 
@@ -25,10 +23,10 @@ object OutletDeviceState extends Enum[OutletDeviceState] {
 
   case object Available extends OutletDeviceState
   case object CablePlugged extends OutletDeviceState
-  case object DeviceRequestsCharging extends OutletDeviceState with AppState
-  case object AppRequestsCharging extends OutletDeviceState with AppState
-  case object Charging extends OutletDeviceState with AppState
-  case object DeviceRequestsStop extends OutletDeviceState with AppState
-  case object AppRequestsStop extends OutletDeviceState with AppState
-  case object ChargingFinished extends OutletDeviceState with AppState
+  case object DeviceRequestsCharging extends OutletDeviceState
+  case object AppRequestsCharging extends OutletDeviceState
+  case object Charging extends OutletDeviceState
+  case object DeviceRequestsStop extends OutletDeviceState
+  case object AppRequestsStop extends OutletDeviceState
+  case object ChargingFinished extends OutletDeviceState
 }

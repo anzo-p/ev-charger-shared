@@ -56,6 +56,6 @@ object OutletStateMachine {
       .sortBy(_.entryName)
       .mkString("{ ", ", ", " }")
 
-    s"outlet not in (one of) state(s) $preStates"
+    s"outlet state must be in one of $preStates in order to transition into $targetState"
   }
 }
