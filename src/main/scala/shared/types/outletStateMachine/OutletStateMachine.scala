@@ -17,8 +17,8 @@ object OutletStateMachine {
       Map(
         Available              -> Seq(CablePlugged),
         CablePlugged           -> Seq(Available, DeviceRequestsCharging, AppRequestsCharging, Charging),
-        DeviceRequestsCharging -> Seq(Available, CablePlugged, Charging),
-        AppRequestsCharging    -> Seq(Available, CablePlugged, Charging),
+        DeviceRequestsCharging -> Seq(Available, CablePlugged, AppDeniesCharging, Charging),
+        AppRequestsCharging    -> Seq(Available, CablePlugged, DeviceDeniesCharging, Charging),
         Charging               -> Seq(Charging, DeviceRequestsStop, AppRequestsStop, ChargingFinished),
         DeviceRequestsStop     -> Seq(ChargingFinished),
         AppRequestsStop        -> Seq(ChargingFinished),

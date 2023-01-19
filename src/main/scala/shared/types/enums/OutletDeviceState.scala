@@ -24,7 +24,9 @@ object OutletDeviceState extends Enum[OutletDeviceState] {
   case object Available extends OutletDeviceState
   case object CablePlugged extends OutletDeviceState
   case object DeviceRequestsCharging extends OutletDeviceState
+  case object DeviceDeniesCharging extends OutletDeviceState
   case object AppRequestsCharging extends OutletDeviceState
+  case object AppDeniesCharging extends OutletDeviceState
   case object Charging extends OutletDeviceState
   case object DeviceRequestsStop extends OutletDeviceState
   case object AppRequestsStop extends OutletDeviceState
