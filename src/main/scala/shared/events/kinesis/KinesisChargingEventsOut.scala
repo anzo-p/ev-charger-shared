@@ -6,11 +6,13 @@ import shared.types.chargingEvent.{ChargingEvent, ChargingEventSerDes}
 import zio.aws.kinesis.Kinesis
 import zio.{Scope, Task, ZLayer}
 
+import java.util.UUID
+
 final case class KinesisChargingEventsOut(producer: Producer[ChargingEvent]) extends ChargingEventProducer {
 
   def put(event: ChargingEvent): Task[Unit] =
     producer
-      .produce(ProducerRecord("123", event))
+      .produce(ProducerRecord(UUID.randomUUID().toString, event))
       .unit
 }
 

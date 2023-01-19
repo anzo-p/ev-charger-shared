@@ -7,12 +7,14 @@ import shared.types.deadLetters.DeadLetterMessage
 import zio.aws.kinesis.Kinesis
 import zio.{Scope, Task, ZLayer}
 
+import java.util.UUID
+
 final case class KinesisDeadLetters(producer: Producer[String]) extends DeadLetterProducer {
   import zio.json._
 
   private def put(message: String): Task[Unit] =
     producer
-      .produce(ProducerRecord("123", message))
+      .produce(ProducerRecord(UUID.randomUUID().toString, message))
       .unit
 
   def send[T](rec: Record[T], th: Throwable): Task[Unit] =
